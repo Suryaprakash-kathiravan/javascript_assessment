@@ -1,16 +1,15 @@
-// Array to store blog posts
 let posts = JSON.parse(localStorage.getItem('posts')) || [];
 
-// DOM Elements
+
 const postForm = document.getElementById('postForm');
 const postsContainer = document.getElementById('posts');
 
-// Function to save posts to localStorage
+
 function savePosts() {
   localStorage.setItem('posts', JSON.stringify(posts));
 }
 
-// Function to render posts on the main page
+
 function renderPosts() {
   postsContainer.innerHTML = '';
   posts.forEach((post, index) => {
@@ -28,7 +27,7 @@ function renderPosts() {
   });
 }
 
-// Function to handle form submission (Create/Edit Post)
+
 if (postForm) {
   postForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -40,32 +39,32 @@ if (postForm) {
       const editIndex = urlParams.get('edit');
 
       if (editIndex !== null) {
-        // Edit existing post
+        
         posts[editIndex] = { title, content };
       } else {
-        // Create new post
+        
         posts.push({ title, content });
       }
 
       savePosts();
-      window.location.href = 'index.html'; // Redirect to the main page
+      window.location.href = 'index.html'; 
     }
   });
 }
 
-// Function to delete a post
+
 function deletePost(index) {
   posts.splice(index, 1);
   savePosts();
   renderPosts();
 }
 
-// Load posts on the main page
+
 if (postsContainer) {
   renderPosts();
 }
 
-// Pre-fill form for editing
+
 if (postForm) {
   const urlParams = new URLSearchParams(window.location.search);
   const editIndex = urlParams.get('edit');
